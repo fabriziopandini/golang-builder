@@ -140,13 +140,13 @@ all: package
 package:
 	docker run --rm -v $(PWD):/src -v /var/run/docker.sock:/var/run/docker.sock fabriziopandini/golang-builder $(NAME):$(VERSION)
 
-test_package: package
+test_package: 
 	docker run --rm $(NAME):$(VERSION)
 
-tag: package
+tag: 
 	docker tag $(NAME):$(VERSION) $(NAME):latest
     
-push: tag
+push: 
 	docker push $(NAME)
 ```
 
