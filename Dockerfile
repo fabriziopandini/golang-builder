@@ -13,7 +13,6 @@ RUN wget -q https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}.
 VOLUME /src
 WORKDIR /src
 
-#COPY build_environment.sh /
 COPY build.sh /
 
 ENTRYPOINT ["/build.sh"]

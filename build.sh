@@ -14,8 +14,18 @@ then
   exit 990
 fi
 
+#
+# Optional DOCKERFILE env var to use the "-f" docker build switch
+# forces docker to use a different dockerfile
+#
+dockerfile=""
+if [[ ! -z "${DOCKERFILE}" ]];
+then
+  dockerfile="-f ${DOCKERFILE}"
+fi
+
 # Check if ./Dockerfile is in src directory 
-if [[ ! -e "./Dockerfile" ]];
+if [[ ! -e "./${DOCKERFILE:-Dockerfile}" ]];
 then
   echo "Error: Must have ./Dockerfile into /src directory"
   exit 990
@@ -81,5 +91,5 @@ echo "Building package $pkgName"
 # Build the image from the Dockerfile in the package directory
 echo "Building image $tagName"
 (
-  docker build -t $tagName .
+  docker build -t $tagName ${dockerfile} .
 )
