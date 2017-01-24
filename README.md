@@ -110,6 +110,7 @@ docker run --rm \
 - CGO_ENABLED - whether or not to compile the binary with CGO (defaults to false)
 - LDFLAGS - flags to pass to the linker (defaults to '-s')
 - OUTPUT - if set, will use the `-o` option with `go build` to output the final binary to the value of this env var
+- DOCKERFILE - if set, will use the `-f` option with `docker build` and use the Dockerfile that correspond to the value of this env var
 
 The above are environment variables to be passed to the docker run command:
 
@@ -119,6 +120,7 @@ docker run --rm \
   -e LDFLAGS='-extldflags "-static"' \
   -e COMPRESS_BINARY=true \
   -e OUTPUT=/bin/my_go_binary \
+  -e DOCKERFILE=myDockerFile \
   -v $(pwd):/src \
   fabriziopandini/golang-builder
 ```
