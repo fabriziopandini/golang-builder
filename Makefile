@@ -10,6 +10,6 @@ build:
 tag: build
 	docker tag $(NAME):$(VERSION) $(NAME):latest
     
-push: docker-tag
+push: tag
 	docker push $(NAME)
 
