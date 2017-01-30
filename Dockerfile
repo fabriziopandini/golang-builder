@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang
 MAINTAINER Fabrizio Pandini <fabrizio.pandini@gmail.com>
 
 ARG DOCKER_VERSION=1.13.0
