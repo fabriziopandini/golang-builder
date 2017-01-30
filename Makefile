@@ -5,11 +5,13 @@ VERSION = 0.2
 all: build
 
 build:
-	@docker build --rm -t $(NAME):$(VERSION) --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) .
+	@docker build --rm -t $(NAME):$(VERSION) .
 
-tag: build
-	@docker tag $(NAME):$(VERSION) $(NAME):latest
+tag: 
+	@docker tag $(NAME):$(VERSION) $(NAME):latest 
     
-push: tag
+push: 
 	@docker push $(NAME)
 
+rmi: 
+	@docker rmi $(NAME) $(NAME):$(VERSION)
