@@ -1,6 +1,3 @@
-#golang-builder
-
-Containerized build environment for compiling an executable Golang package and packaging it in a light-weight Docker container.
 
 ## Overview
 

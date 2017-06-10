@@ -67,7 +67,7 @@ echo "Building package $pkgName"
 
 
 # Check if /var/run/docker.sock is mounted
-if [[ ! -e "/var/run/docker.sock"  ]];
+if [[ -e "/var/run/docker.sock"  ]];
 then
   #
   # Optional DOCKERFILE env var to use the "-f" docker build switch
