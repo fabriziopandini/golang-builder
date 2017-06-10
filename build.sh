@@ -1,33 +1,10 @@
 #!/bin/bash -e
 
-# Check if /var/run/docker.sock is mounted
-if [[ ! -e "/var/run/docker.sock"  ]];
-then
-  echo "Error: Must mount /var/run/docker.sock into /var/run/docker.sock directory"
-  exit 990
-fi
 
 # Check if src directory is not empty
 if ( find /src -maxdepth 0 -empty | read v );
 then
   echo "Error: Must mount Go source code into /src directory"
-  exit 990
-fi
-
-#
-# Optional DOCKERFILE env var to use the "-f" docker build switch
-# forces docker to use a different dockerfile
-#
-dockerfile=""
-if [[ ! -z "${DOCKERFILE}" ]];
-then
-  dockerfile="-f ${DOCKERFILE}"
-fi
-
-# Check if ./Dockerfile is in src directory 
-if [[ ! -e "./${DOCKERFILE:-Dockerfile}" ]];
-then
-  echo "Error: Must have ./Dockerfile into /src directory"
   exit 990
 fi
 
@@ -88,8 +65,30 @@ echo "Building package $pkgName"
   $pkgName
 )
 
-# Build the image from the Dockerfile in the package directory
-echo "Building image $tagName"
-(
-  docker build -t $tagName ${dockerfile} .
-)
+
+# Check if /var/run/docker.sock is mounted
+if [[ ! -e "/var/run/docker.sock"  ]];
+then
+  #
+  # Optional DOCKERFILE env var to use the "-f" docker build switch
+  # forces docker to use a different dockerfile
+  #
+  dockerfile=""
+  if [[ ! -z "${DOCKERFILE}" ]];
+  then
+    dockerfile="-f ${DOCKERFILE}"
+  fi
+
+  # Check if ./Dockerfile is in src directory 
+  if [[ ! -e "./${DOCKERFILE:-Dockerfile}" ]];
+  then
+    echo "Error: Must have ./Dockerfile into /src directory"
+    exit 990
+  fi
+
+  # Build the image from the Dockerfile in the package directory
+  echo "Building image $tagName"
+  (
+    docker build -t $tagName ${dockerfile} .
+  )
+fi

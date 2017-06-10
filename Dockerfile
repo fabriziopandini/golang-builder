@@ -1,7 +1,7 @@
 FROM golang
 MAINTAINER Fabrizio Pandini <fabrizio.pandini@gmail.com>
 
-ARG DOCKER_VERSION=1.13.0
+ARG DOCKER_VERSION=17.04.0-ce
 
 # Install Docker binary (see https://github.com/docker/docker/releases)
 RUN wget -q https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}.tgz  && \
